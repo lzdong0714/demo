@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.entity.DemoEntity;
+import com.example.demo.entity.Girl;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public interface GirlMapper  {
     //查
     @Select("select id,name,age from girl where id=#{id}")
     DemoEntity selectById(@Param("id") Integer id);
+
+//    Girl selectGirlById(@Param("id") Integer id);
 
     //删
     @Delete("delete from girl where id=#{id}")

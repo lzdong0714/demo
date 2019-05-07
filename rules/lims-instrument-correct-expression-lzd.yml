@@ -1,0 +1,46 @@
+#基本信息
+name: lims_instrument_correct_expression_lzd #退样
+description: "获取仪器检定信息"
+mode: simple      #主要用于区分是pojo方式的，还是简单的基于表达式的方式，默认该项可以不配置，默认为simple。
+run_mode: period    #规则运行方式。可选：period | realtime，默认period
+category: instrument_correct #主要用日期类，数字类别， 文本类别
+cron_entry: "0/30 * * * * ? " #CRON表达式，run_mode为period时有效
+data_fields: #数据属性定义。用${field}引用属性值。系统预定义属性：count->数据条数，now->当前时间，用^{count}引用属性值
+  - assigName
+  - department
+  - lastInspectTime
+  - currentDate
+  - nextInspectTime
+  
+data_format: json  
+#realert: false #是否重复报警
+#buffer_time:  #报警缓存时间
+#alert
+#获取数据
+
+fetcher_type:   api #数据获取方式，可选：api | rdb | tsdb | cache | ms | lpc | inject
+fetcher_target: http://120.78.207.98:8003/hnty/lims/v1/repo/alarm_origin_info/device
+fetcher_mappings:   #mapping后的添加参数
+filter:         taskId>0 && taskEndTime<^{now}  #数据过滤条件。 &:与，|：或， !：非
+path:           
+#max_query_size: #单次获取的最大记录数
+#priority: #报警规则优先级
+
+#分析匹配
+analyzer_type: qlexpress #触发匹配类型：mvel(仅支持一种方式) |  any | flatline | frequency | spike | range | cardinality
+expression:   时间比较(时间转换(nextInspectTime), 现在) > 15           #storeNumber-alarmNumber >0
+timeframe: 
+#aggregation: #聚合一段时间内的警告，一起发送
+#  hours: 2  # hours:小时，minutes：分钟，days：天， weeks:周
+#  cron: '2 4 * * mon,fri' #周期发送
+#aggregation_key: 聚合关键字
+
+#组装发送
+transmitter_type: stomp  #报警方式，可选：sms | email | db | stomp | api | lpc | debug | custom ...
+transmitter_style: origion # 两种，原始信息或者  包装信息
+#transmitter_name: com.hnty.alerter.CustomAlerter #自定义报警器，alerter_type为custom时有效
+#wrapper: 尊敬的${userName}，您有新的任务等待完成，任务名[${taskName}]，截止时间[${taskEndTime}] #报警内容
+wrapper: 尊敬的{subscriptions}，{assigName}上次校准日期为{lastInspectTime}，即将于{nextInspectTime}到期,请及时进行校准 #报警内容    
+subscriptions: #报警订阅者
+  #- "13659812432"
+  - /alert/warn

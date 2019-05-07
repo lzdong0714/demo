@@ -2,7 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.entity.DemoEntity;
 import com.example.demo.entity.Friend;
+import com.example.demo.entity.Girl;
 import com.example.demo.mapper.FriendMapper;
+import com.example.demo.mapper.GirlDao;
 import com.example.demo.mapper.GirlMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,12 @@ public class GirlService {
 
     public DemoEntity selectById(Integer id){
         return girlMapper.selectById(id);
+    }
+
+    @Autowired
+    public GirlDao girlDao;
+    public Girl selectGirlById(Integer id){
+        return girlDao.selectById(id);
     }
 
     @Transactional

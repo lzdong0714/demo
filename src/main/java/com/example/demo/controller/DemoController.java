@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.DemoEntity;
+import com.example.demo.entity.Girl;
 import com.example.demo.service.DemoService;
+import com.example.demo.service.GirlService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,14 @@ public class DemoController {
     @RequestMapping(value = "/boy/{id}",method = RequestMethod.GET)
     public DemoEntity findBoy(@PathVariable("id") Integer id){
         return demoService.selectById(id);
+    }
+
+
+    @Autowired
+    private GirlService girlService;
+    @RequestMapping(value = "/girl/{id}",method = RequestMethod.GET)
+    public Girl findGirl(@PathVariable("id") Integer id){
+        return girlService.selectGirlById(id);
     }
 
     //增
