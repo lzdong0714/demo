@@ -21,7 +21,7 @@ public class JobController {
     private com.example.quartz_one.service.IJobAndTriggerService iJobAndTriggerService;
 
     //加入Qulifier注解，通过名称注入bean
-    @Autowired //@Qualifier("Scheduler")
+    @Autowired @Qualifier("Scheduler")
     private Scheduler scheduler;
 
     private static Logger log = LoggerFactory.getLogger(JobController.class);

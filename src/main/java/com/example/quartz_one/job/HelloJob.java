@@ -9,6 +9,6 @@ import java.util.Date;
 public class HelloJob implements BaseJob{
     @Override
     public void execute(JobExecutionContext jobExecutionContext){
-        log.info("Hello Job 执行时间 : "+new Date());
+        log.error("Hello Job 执行时间 : "+new Date());
     }
 }

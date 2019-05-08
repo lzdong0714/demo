@@ -1,37 +1,51 @@
-server.port: 9065
-#########################demo使用的数据库#####################
-#mybatis:
-#  configuration:
-#    map-underscore-to-camel-case: true
-#  mapper-locations: classpath:mysql/demo/*.xml
-#
-#Spring:
-#  jackson:
-#    date-format: yyyy-MM-dd HH:mm:ss
-#    time-zone: GMT+8
-#  datasource:
-#    driver: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/localtest?serverTimezone=GMT%2B8
-#    useSSL: false
-#    username: root
-#    password: hntywork
-#########################END demo使用的数据库#####################
+server.port: 8080
+# profiles和yml的---区分多文件，对不同的application的进行环境区分
+spring:
+  profiles:
+    active: quartz
+---
+########################demo使用的数据库#####################
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mysql/demo/*.xml
 
+spring:
+  profiles: demo
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driver: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/localtest?serverTimezone=GMT%2B8
+    useSSL: false
+    username: root
+    password: hntywork
+########################END demo使用的数据库#####################
+server:
+  port: 8001
+#logging:
+#  level: debug
+---
 #########################quartz使用的数据库#####################
 spring:
+  profiles: quartz
   datasource:
     url: jdbc:mysql://localhost:3306/quartz?serverTimezone=GMT%2B8
     username: root
     password: hntywork
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
   mapper-locations:
     - classpath:mysql/quartz/*.xml
-  type-aliases-package: com.example.quartz.entity
+  type-aliases-package: com.example.quartz_one.entity
+
+server:
+  port: 9065
+
 #########################END quartz使用的数据库#####################
-
-
+---
 #quartz:
 #  scheduler:
 #    instanceName: MyselfScheduler

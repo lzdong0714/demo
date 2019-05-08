@@ -5,6 +5,6 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 public interface BaseJob extends Job {
-    @Override
-    default void execute(JobExecutionContext context) throws JobExecutionException {}
+
+    public void execute(JobExecutionContext context) throws JobExecutionException ;
 }
