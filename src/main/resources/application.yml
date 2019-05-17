@@ -42,7 +42,7 @@ mybatis:
   type-aliases-package: com.example.quartz_one.entity
 
 server:
-  port: 9065
+  port: 8081
 
 #########################END quartz使用的数据库#####################
 ---
