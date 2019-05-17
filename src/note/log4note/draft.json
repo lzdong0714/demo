@@ -1,0 +1,115 @@
+// input
+{
+	"id":2,
+	"name": "lims_sample_return_rule_expression_lzd",
+	"description":"样品退样",
+	"model": "simple",
+	"runModel": "period", 
+	"category": "sample_return", 
+	"cronEntry": "0 0/2 * * * ? ",
+	"dataFormat": "json",
+    "dataFieldsId":2 ,
+    "fetcherId" :2,
+    "analyzerId":2,
+    "transmitId" :2
+}
+
+// fetcher:
+	// http://localhost:8081/alart//fetcher/insert
+	// http://localhost:8081/alart/fetcher/all
+	// http://localhost:8081/alart/fetcher/delete
+	// http://localhost:8081/alart/fetcher/select?fetcherId=1 
+	{
+		"fetcherId":2,
+		"fetcherType": "api",
+		"fetcherTarget":"http://47.92.28.186:8003/hnty/lims/v1/repo/alarm_origin_info/sample/rejectInfo",
+		"fetcherMappings":"",
+		"fetcherFilter":"taskId>0 && taskEndTime<^{now}",
+		"fetcherPath":null
+	}
+
+// anaylzer
+	// http://localhost:8081/alart//analyzer/insert
+	// http://localhost:8081/alart/analyzer/all
+	// http://localhost:8081/alart/analyzer/delete
+	// http://localhost:8081/alart/analyzer/select
+{
+	"anaylzer_id":2,
+	"analyzerType":"qlexpress",
+	"analyzerExpression":"null"
+}
+
+//transmit
+	// http://localhost:8081/alart//transmit/insert
+	// http://localhost:8081/alart/transmit/all
+	// http://localhost:8081/alart/transmit/delete
+	// http://localhost:8081/alart/transmit/select
+{
+	"transmitId":2,
+	"subscriptId":2,
+	"transmitType":"stomp",
+	"transmitStyle":"origion",
+	"wrapper":"尊敬的{subscriptions}，项目编号{projectID}，任务单编号{taskID}，工作编号{jobID},送样人{broughtBy}的样品编号{$ 提取非正常退样( sampleReceiveStatus,\"-正常\"  ) }被退样，请关注"
+}
+
+//fields
+[
+	{
+		"analyzerId":2,
+		"inputId":2,
+		"dataField":"jobID"
+	},
+	{
+		"analyzerId":2,
+		"inputId":2,
+		"dataField":"projectID"
+	},
+	{
+		"analyzerId":2,
+		"inputId":2,
+		"dataField":"taskID"
+	},
+	
+	{
+		"analyzerId":2,
+		"inputId":2,
+		"dataField":"broughtBy"
+	},
+	{
+		"analyzerId":2,
+		"inputId":2,
+		"dataField":"receivedBy"
+	},
+	{
+		"analyzerId":2,
+		"inputId":2,
+		"dataField":"receivedDate"
+	},
+	{
+		"analyzerId":2,
+		"inputId":2,
+		"dataField":"sampleReceiveStatus"
+	}
+]
+
+//subscriptions
+[
+	{
+		"transmitId":2,
+		"inputId":2,
+		"subScript":"/alert/warn"
+	},
+	{
+		"transmitId":2,
+		"inputId":2,
+		"subScript":"/support/warn"
+	}
+]
+
+//relation
+{
+	"inputId":2,
+	"fetcherId":2,
+	"anaylzerId":2,
+	"transmitId":2
+}
