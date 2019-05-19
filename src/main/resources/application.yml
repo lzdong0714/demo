@@ -2,7 +2,7 @@ server.port: 8080
 # profiles和yml的---区分多文件，对不同的application的进行环境区分
 spring:
   profiles:
-    active: quartz
+    active: home
 ---
 ########################demo使用的数据库#####################
 mybatis:
@@ -45,6 +45,22 @@ server:
   port: 8081
 
 #########################END quartz使用的数据库#####################
+---
+spring:
+  profiles: home
+  datasource:
+    url: jdbc:mysql://localhost:3306/mysql?serverTimezone=GMT%2B8
+    username: root
+    password: lzdong0714
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations:
+    - classpath:mysql/quartz/*.xml
+  type-aliases-package: com.example.quartz_one.entity
+
+server:
+  port: 8081
 ---
 #quartz:
 #  scheduler:

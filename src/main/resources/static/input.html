@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Input</title>
+</head>
+<body>
+<div id="test">
+
+    <div id="top">
+        <el-button type="text" @click="search" style="color:white">查询</el-button>
+        <el-button type="text" @click="handleadd" style="color:white">添加</el-button>
+        </span>
+    </div>
+
+    <br/>
+
+    <div style="margin-top:15px">
+        <el-table
+                ref="testTable"
+                :data="tableData"
+                style="width:100%"
+                border>
+            <el-table-column
+                    prop="job_NAME"
+                    label="任务名称"
+                    sortable
+                    show-overflow-tooltip>
+            </el-table-column>
+
+            <el-table-column
+                    prop="job_GROUP"
+                    label="任务所在组"
+                    sortable>
+            </el-table-column>
+
+            <el-table-column
+                    prop="job_CLASS_NAME"
+                    label="任务类名"
+                    sortable>
+            </el-table-column>
+
+            <el-table-column
+                    prop="trigger_NAME"
+                    label="触发器名称"
+                    sortable>
+            </el-table-column>
+
+            <el-table-column
+                    prop="trigger_GROUP"
+                    label="触发器所在组"
+                    sortable>
+            </el-table-column>
+
+            <el-table-column
+                    prop="cron_EXPRESSION"
+                    label="表达式"
+                    sortable>
+            </el-table-column>
+
+            <el-table-column
+                    prop="time_ZONE_ID"
+                    label="时区"
+                    sortable>
+            </el-table-column>
+        </el-table>
+    </div>
+</div>
+</body>
+</html>
