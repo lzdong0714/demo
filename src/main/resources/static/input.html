@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Input</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.0.5/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="http://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.js"></script>
+    <script src="https://unpkg.com/element-ui@2.0.5/lib/index.js"></script>
+
+    <style>
+        #top {
+            background:#20A0FF;
+            padding:5px;
+            overflow:hidden
+        }
+    </style>
+
 </head>
 <body>
 <div id="test">
@@ -20,51 +33,32 @@
                 ref="testTable"
                 :data="tableData"
                 style="width:100%"
-                border>
+                border
+        >
             <el-table-column
                     prop="job_NAME"
                     label="任务名称"
                     sortable
                     show-overflow-tooltip>
             </el-table-column>
-
-            <el-table-column
-                    prop="job_GROUP"
-                    label="任务所在组"
-                    sortable>
-            </el-table-column>
-
-            <el-table-column
-                    prop="job_CLASS_NAME"
-                    label="任务类名"
-                    sortable>
-            </el-table-column>
-
-            <el-table-column
-                    prop="trigger_NAME"
-                    label="触发器名称"
-                    sortable>
-            </el-table-column>
-
-            <el-table-column
-                    prop="trigger_GROUP"
-                    label="触发器所在组"
-                    sortable>
-            </el-table-column>
-
-            <el-table-column
-                    prop="cron_EXPRESSION"
-                    label="表达式"
-                    sortable>
-            </el-table-column>
-
-            <el-table-column
-                    prop="time_ZONE_ID"
-                    label="时区"
-                    sortable>
-            </el-table-column>
         </el-table>
+
+            <div align="center">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage"
+                        :page-sizes="[10, 20, 30, 40]"
+                        :page-size="pagesize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="totalCount">
+                </el-pagination>
+            </div>
+
+
     </div>
+
+
 </div>
 </body>
 </html>

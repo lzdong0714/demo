@@ -6,4 +6,15 @@
         select * from girl
         where id=#{id}
     </select>
+    
+    <insert id="insertGirl" parameterType="com.example.demo.entity.Girl"
+            useGeneratedKeys="true" keyProperty="uid" keyColumn="id">
+        INSERT INTO girl(
+            name,
+            age
+        )VALUES (
+          #{name},
+          #{age}
+        )
+    </insert>
 </mapper>

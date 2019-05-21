@@ -34,7 +34,7 @@
 	// http://localhost:8081/alart/analyzer/delete
 	// http://localhost:8081/alart/analyzer/select
 {
-	"anaylzer_id":2,
+	"analyzerId":2,
 	"analyzerType":"qlexpress",
 	"analyzerExpression":"null"
 }
@@ -112,4 +112,92 @@
 	"fetcherId":2,
 	"anaylzerId":2,
 	"transmitId":2
+}
+
+------------------------------------------------------------------------------------------------
+// http://localhost:8081/alart/fetcher/insert
+{
+	// input
+	"input":{
+
+		"name": "lims_project_proposal_warn_rule_lzd",
+		"description":"方案变更提示",
+		"model": "simple",
+		"runModel": "period", 
+		"category": "project_proposal", 
+		"cronEntry": "0 0/2 * * * ? ",
+		"dataFormat": "json"
+
+	},
+
+	// fetcher:
+	// http://localhost:8081/alart//fetcher/insert
+	// http://localhost:8081/alart/fetcher/all
+	// http://localhost:8081/alart/fetcher/delete
+	// http://localhost:8081/alart/fetcher/select?fetcherId=1 
+	"fetcher":
+	{
+
+		"fetcherType": "api",
+		"fetcherTarget":"http://47.92.28.186:8003/hnty/lims/v1/repo/alarm_origin_info/device",
+		"fetcherMappings":"",
+		"fetcherFilter":"taskId>0 && taskEndTime<^{now}",
+		"fetcherPath":null
+	},
+
+	// anaylzer
+	// http://localhost:8081/alart//analyzer/insert
+	// http://localhost:8081/alart/analyzer/all
+	// http://localhost:8081/alart/analyzer/delete
+	// http://localhost:8081/alart/analyzer/select
+	"analyzer":
+	{
+
+		"analyzerType":"qlexpress",
+		"analyzerExpression":"1==1 "
+	},
+
+	//transmit
+	// http://localhost:8081/alart//transmit/insert
+	// http://localhost:8081/alart/transmit/all
+	// http://localhost:8081/alart/transmit/delete
+	// http://localhost:8081/alart/transmit/select
+	"transmit":
+	{
+
+		"subscriptId":3,
+		"transmitType":"stomp",
+		"transmitStyle":"origion",
+		"wrapper":"尊敬的{subscriptions}，当前任务编号{registerId}，委托方客户是{clientName}，检验员{authorName}于{authorDate}更改方案状态为{status}，请关注"
+	},
+
+	//fields
+		"dataFields":
+		[
+			{
+				"dataField":"authorDate"
+			},
+			{
+				"dataField":"status"
+			},
+			{
+				"dataField":"registerId"
+			},
+			
+			{
+				"dataField":"projectName"
+			},
+			{
+
+				"dataField":"authorName"
+			}
+		],
+
+	//subscriptions
+	"subScript":
+	[
+		{
+			"subScript":"/alert/warn"
+		}
+	]
 }

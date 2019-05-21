@@ -2,7 +2,7 @@ server.port: 8080
 # profiles和yml的---区分多文件，对不同的application的进行环境区分
 spring:
   profiles:
-    active: home
+    active: demo
 ---
 ########################demo使用的数据库#####################
 mybatis:

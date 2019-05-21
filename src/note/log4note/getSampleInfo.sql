@@ -373,7 +373,7 @@ FROM
     model varchar(100),
     run_model varchar(100) NOT NULL,
     cateory varchar(200),
-    cron_extry varchar(120),
+    cron_entry varchar(120),
     data_fields_id int ,
     data_format varchar(100),
     fetcher_id int NOT NULL,
@@ -438,13 +438,13 @@ FROM
 
 -- 未知原因没有绑定到 qrtz_alart_fetcher_test 的 fetcher_id
   alter table qrtz_input_relation_test ADD CONSTRAINT 
-      fk_fetcher FOREIGN KEY(fetcher_id) REFERENCES qrtz_alart_fetcher_test(fetcher_id)  ON DELETE CASCADE   
+      fk_fetcher FOREIGN KEY(fetcher_id) REFERENCES qrtz_alart_fetcher_test(id)  ON DELETE CASCADE   
 
   alter table qrtz_input_relation_test ADD CONSTRAINT
-      fk_anaylzer FOREIGN KEY(anaylzer_id) REFERENCES qrtz_alart_analyzer_test(anaylzer_id)  ON DELETE CASCADE
+      fk_anaylzer FOREIGN KEY(anaylzer_id) REFERENCES qrtz_alart_analyzer_test(id)  ON DELETE CASCADE
 
   alter table qrtz_input_relation_test ADD CONSTRAINT 
-      fk_transmit FOREIGN KEY(transmit_id) REFERENCES qrtz_alart_transmit_test(transmit_id)  ON DELETE CASCADE
+      fk_transmit FOREIGN KEY(transmit_id) REFERENCES qrtz_alart_transmit_test(id)  ON DELETE CASCADE
       
   --查看表结构 
     desc table_name

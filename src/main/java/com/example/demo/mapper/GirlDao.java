@@ -2,11 +2,11 @@ package com.example.demo.mapper;
 
 import com.example.demo.entity.Girl;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.SelectKey;
 
 
 public interface GirlDao {
-
-    void insert(Girl girl);
+    int insertGirl( Girl girl);
 
     void Update(Girl girl);
 

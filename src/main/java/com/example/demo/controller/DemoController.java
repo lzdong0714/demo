@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.DemoEntity;
 import com.example.demo.entity.Girl;
+import com.example.demo.mapper.GirlDao;
 import com.example.demo.service.DemoService;
 import com.example.demo.service.GirlService;
 import org.slf4j.Logger;
@@ -60,5 +61,17 @@ public class DemoController {
     public String deleteBoy(@PathVariable("id") Integer id){
         boolean flag = demoService.delete(id);
         return  flag ?"delete the piss boy":"fail to kill the damon boy";
+    }
+
+    @Autowired
+    GirlDao girlDao;
+    @RequestMapping(value = "/girl/insert", method = RequestMethod.GET)
+    public void insertGirl(){
+        Girl girl = new Girl();
+        girl.setName("ls");
+        girl.setAge(24);
+
+        System.out.println("main result is : "+ girlDao.insertGirl(girl));
+        System.out.println("return key id is : "+girl.getUid());
     }
 }

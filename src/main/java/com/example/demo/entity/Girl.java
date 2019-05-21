@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class Girl implements Serializable {
-    private Integer id;
+    private int uid;
     private String name;
     private Integer age;
 }

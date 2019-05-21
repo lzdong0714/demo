@@ -22,26 +22,32 @@
     <form>
     <tr>fetcher 输入:</tr><br/>
     ID:<input type="text" name="fetcher_id" ><br/>
-    TYPE:<input type="text" name="fetcher_type"><br/>
-        <input type="submit" value="提交">
+        获取类型:<select>
+                    <option>api</option>
+                    <option>rdb</option>
+                    <option>tsdb</option>
+                </select><br/>
+    资源地址:<input type="text" name="fetcher_type"><br/>
+    过滤条件:<input type="text" name="fetcher_type"><br/>
+    路径:<input type="text" name="fetcher_type"><br/>
     </form>
+    <input type="submit" value="提交">
 
-    <tr>结果</tr>
-
-
+    <div>
     <form>
         <tr>fetcher 查询:</tr><br/>
         ID:<input type="text" name="fetcher_id" ><br/>
         TYPE:<input type="text" name="fetcher_type"><br/>
-        <input type="submit" value="提交">
+        <input type="submit" value="查询">
     </form>
+    </div>
 
     <br/>
     <form>
         <tr>fetcher 修改:</tr><br/>
         ID:<input type="text" name="fetcher_id" ><br/>
         TYPE:<input type="text" name="fetcher_type"><br/>
-        <input type="submit" value="提交">
+        <input type="submit" value="修改">
     </form>
 
 </div>
