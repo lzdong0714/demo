@@ -23,7 +23,7 @@ spring:
     password: hntywork
 ########################END demo使用的数据库#####################
 server:
-  port: 8001
+  port: 8081
 #logging:
 #  level: debug
 ---
@@ -62,67 +62,3 @@ mybatis:
 server:
   port: 8081
 ---
-#quartz:
-#  scheduler:
-#    instanceName: MyselfScheduler
-#    instanceId: Auto
-#    instance-id: NON_CLUSTERED # 使用集群：AUTO 不使用集群：NON_CLUSTERED
-#    skip-update-check: true
-#    job-factory:
-#      class: org.quartz.simpl.SimpleJobFactory
-#  job-store:
-#    class: org.quartz.impl.jdbcjobstore.JobStoreTX
-#    driver-delegate-class: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
-#    datasource: quartzDataSource
-#    table-prefix: QRTZ_
-#    is-clustered: true
-#  thread-pool:
-#    class: org.quartz.simpl.SimpleThreadPool
-#    thread-count: 5
-#    threadPriority: 5
-#    threadsInheritContextClassLoaderOfInitializingThread: true
-#  dataSource:
-#    quartzDataSource:
-#      driver:
-#      url: ${spring.datasource.druid.url}
-#      user: ${spring.datasource.druid.username}
-#      password: ${spring.datasource.druid.password}
-#      maxConnections: 5
-#      validationQuery: select 0
-#      connection-provider:
-#        class: com.lingdu.welend.config.quartz.DruidConnectionProvider
-#  job-store-type: jdbc
-
-#  quartz:
-#    #相关属性配置
-#    properties:
-#      org:
-#        quartz:
-#          #Configure Main Scheduler Properties     调度器属性
-#          scheduler:
-#            instanceName: clusteredScheduler
-#            instanceId: AUTO
-#          dataSource:
-#              driver : com.mysql.jdbc.Driver
-#              URL : jdbc:mysql://localhost:3306/quartz?autoReconnect=true&characterEncoding=utf-8&useSSL=false
-#              user : root
-#              password : hntywork
-#              maxConnections : 10
-#              validationQuery: select 0
-#          #Configure JobStore 作业存储设置
-#          jobStore:
-#            #              class: org.quartz.simpl.RAMJobStore
-#            class: org.quartz.impl.jdbcjobstore.JobStoreTX
-#            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
-#            tablePrefix: QRTZ_
-#            isClustered: true
-#            clusterCheckinInterval: 10000
-#            useProperties: false
-#          #Configure ThreadPool     线程池属性
-#          threadPool:
-#            class: org.quartz.simpl.SimpleThreadPool
-#            threadCount: 20
-#            threadPriority: 5
-#            threadsInheritContextClassLoaderOfInitializingThread: true
-#      #数据库方式
-#      job-store-type: jdbc
