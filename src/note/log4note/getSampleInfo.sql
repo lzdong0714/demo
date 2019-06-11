@@ -385,7 +385,6 @@ FROM
   -- alter table qrtz_alart_input_test change cron_extry cron_entry
   create table qrtz_alart_fetcher_test(
     id int primary key auto_increment,
-    fetcher_id int NOT NULL,
     fetcher_type varchar(200) NOT NULL,
     fetcher_target varchar(200) NOT NULL,
     fetcher_mappings varchar(250),
@@ -395,7 +394,6 @@ FROM
 
   create table qrtz_alart_analyzer_test(
     id int primary key auto_increment,
-    analyzer_id int NOT NULL,
     analyzer_type varchar(200) NOT NULL,
     analyzer_expression varchar(250)
   )

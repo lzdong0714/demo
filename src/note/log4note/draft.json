@@ -193,11 +193,275 @@
 			}
 		],
 
-	//subscriptions
-	"subScript":
+	"subScripts":
 	[
 		{
 			"subScript":"/alert/warn"
 		}
 	]
 }
+
+-------------------------------------------------------------------------------------------------------------
+{
+
+	"input":{
+
+		"name": "lims_project_proposal_warn_rule_lzd",
+		"description":"方案变更提示",
+		"model": "simple",
+		"runModel": "period", 
+		"category": "project_proposal", 
+		"cronEntry": "0 0/2 * * * ? ",
+		"dataFormat": "json"
+
+	},
+
+
+	"fetcher":
+	{
+
+		"fetcherType": "api",
+		"fetcherTarget":"http://47.92.28.186:8003/hnty/lims/v1/repo/alarm_origin_info/device",
+		"fetcherMappings":"",
+		"fetcherFilter":"taskId>0 && taskEndTime<^{now}",
+		"fetcherPath":null
+	},
+
+
+	"analyzer":
+	{
+
+		"analyzerType":"qlexpress",
+		"analyzerExpression":"1==1 "
+	},
+	"transmit":
+	{
+
+		"subscriptId":3,
+		"transmitType":"stomp",
+		"transmitStyle":"origion",
+		"wrapper":"尊敬的{subscriptions}，当前任务编号{registerId}，委托方客户是{clientName}，检验员{authorName}于{authorDate}更改方案状态为{status}，请关注"
+	},
+
+		"dataFields":
+		[
+			{
+				"dataField":"authorDate"
+			},
+			{
+				"dataField":"status"
+			},
+			{
+				"dataField":"registerId"
+			},
+			
+			{
+				"dataField":"projectName"
+			},
+			{
+
+				"dataField":"authorName"
+			}
+		],
+
+	"subScripts":
+	[
+		{
+			"subScript":"/alert/warn"
+		},
+		{
+			"subScript":"13659812432"
+		}
+	]
+}
+-----------------------------------------------------
+{
+
+"name": "lims_instrument_correct_expression_lzd", 
+"description": "获取仪器检定信息",
+"mode": "simple",      
+"run_mode": "period", 
+"category": "instrument_correct",
+"cron_entry": "0 0/3 * * * ? " ,
+"data_fields":["assigName","department","lastInspectTime", "currentDate","nextInspectTime"],
+"data_format": "json",  
+"fetcher_type":   "api",
+"fetcher_target": "http://47.92.28.186:8003/hnty/lims/v1/repo/alarm_origin_info/device",
+"fetcher_mappings":   ,
+"filter":         "taskId>0 && taskEndTime<^{now}", 
+
+"analyzer_type": "qlexpress",
+"expression":   "时间比较(时间转换(nextInspectTime), 现在) > 15",
+
+"transmitter_type": "stomp",
+"wrapper": "尊敬的{subscriptions}，{assigName}上次校准日期为{lastInspectTime}，即将于{nextInspectTime}到期,请及时进行校准",   
+"subscription": 
+  [
+  	"/alert/warn"
+  ]
+  
+}
+
+	"analyzer":
+	{
+		"analyzerType":"qlexpress",
+		"analyzerExpression":"1==1 ",
+		"timeframe":""
+        
+	},
+
+
+expression: 时间比较(时间转换(nextInspectTime), 现在) > 15
+analyzer_type: qlexpress
+-------------------------------------------------------------------------------------
+{
+
+	"input":{
+
+		"name": "lims_instrument_correct_expression_lzd",
+		"description":"获取仪器检定信息",
+		"model": "simple",
+		"runModel": "period", 
+		"category": "instrument_correct", 
+		"cronEntry": "0 0/2 * * * ? ",
+		"dataFormat": "json"
+
+	},
+
+
+	"fetcher":
+	{
+
+		"fetcherType": "api",
+		"fetcherTarget":"http://47.92.28.186:8003/hnty/lims/v1/repo/alarm_origin_info/device",
+		"fetcherMappings":"",
+		"fetcherFilter":"taskId>0 && taskEndTime<^{now}",
+		"fetcherPath":null
+	},
+
+
+	"analyzer":
+	{
+
+		"analyzerType":"qlexpress",
+		"analyzerExpression":"时间比较(时间转换(nextInspectTime), 现在) > 15"
+	},
+	"transmit":
+	{
+
+		"subscriptId":3,
+		"transmitType":"stomp",
+		"transmitStyle":"origion",
+		"wrapper":
+		"尊敬的{subscriptions}，{assigName}上次校准日期为{lastInspectTime}，即将于{nextInspectTime}到期,请及时进行校准"
+	},
+
+		"dataFields":
+		[
+			{
+				"dataField":"assigName"
+			},
+			{
+				"dataField":"department"
+			},
+			{
+				"dataField":"lastInspectTime"
+			},
+			
+			{
+				"dataField":"currentDate"
+			}
+		],
+
+	"subScripts":
+	[
+		{
+			"subScript":"/alert/warn"
+		}
+	]
+}
+----------------------------------------------------------------------------
+{
+
+	"input":{
+
+		"name": "lims_instrument_correct_expression_lzd",
+		"description":"获取仪器检定信息",
+		"model": "simple",
+		"runModel": "period", 
+		"category": "instrument_correct", 
+		"cronEntry": "0 0/2 * * * ? ",
+		"dataFormat": "json"
+
+	},
+
+
+	"fetcher":
+	{
+
+		"fetcherType": "api",
+		"fetcherTarget":"http://47.92.28.186:8003/hnty/lims/v1/repo/alarm_origin_info/device",
+		"fetcherMappings":"",
+		"fetcherFilter":"taskId>0 && taskEndTime<^{now}",
+		"fetcherPath":null
+	},
+
+
+	"analyzer":
+	{
+
+		"analyzerType":"qlexpress",
+		"analyzerExpression":"时间比较(时间转换(nextInspectTime), 现在) > 15"
+	},
+	"transmit":
+	{
+
+		"subscriptId":3,
+		"transmitType":"stomp",
+		"transmitStyle":"origion",
+		"wrapper":
+		"尊敬的{subscriptions}，{assigName}上次校准日期为{lastInspectTime}，即将于{nextInspectTime}到期,请及时进行校准"
+	},
+
+		"dataFields":
+		[
+			{
+				"dataField":"taskID"
+			},
+			{
+				"dataField":"projectName"
+			},
+			{
+				"dataField":"clientName"
+			},
+			
+			{
+				"dataField":"registerDate"
+			},
+			{
+				"dataField":"planDate"
+			},
+			{
+				"dataField":"status"
+			}
+		]
+		,
+
+	"subScripts":
+	[
+		{
+			"subScript":"18772316127"
+		},
+		{
+			"subScript":"15927566686"
+		}
+	]
+}
+
+--------------------------mvn command---------------
+mvn install:install-file -Dfile=rules-core-1.1.0.jar -DgroupId=com.hntycloud -DartifactId=rules-core -Dversion=1.1.0 -Dpackaging=jar
+
+短信测试发送问题：
+ 直接run 会发送重复数据
+ debug模式下，如果是不加断点，会没有执行短信发送
+ 		加断点测试，才正确的接收多条信息(通过日志核对)

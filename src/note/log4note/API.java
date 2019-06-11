@@ -300,7 +300,79 @@
 
 	2 文件监听
 
-	3 规则匹配
+	3 规则匹配 规则文件字段详细解释
+		#基本信息
+		name: lims_instrument_correct_expression_lzd #退样
+		description: "获取仪器检定信息"
+		mode: simple      #主要用于区分是pojo方式的，还是简单的基于表达式的方式，默认该项可以不配置，默认为simple。
+		run_mode: period    #规则运行方式。可选：period | realtime，默认period 
+		category: instrument_correct #主要用日期类，数字类别文本类别
+		cron_entry: "0 0/3 * * * ? " #CRON表达式，run_mode为period时有效
+		data_fields: #数据属性定义。用${field}引用属性值。系统预定义属性：count->数据条数，now->当前时间，用^{count}引用属性值
+		  - assigName
+		  - department
+		  - lastInspectTime
+		  - currentDate
+		  - nextInspectTime		  
+		data_format: json  
+
+
+		#获取数据
+		fetcher_type:   api #数据获取方式，可选：api | rdb | tsdb | cache | ms | lpc | inject
+		fetcher_target: http://47.92.28.186:8003/hnty/lims/v1/repo/alarm_origin_info/device
+		fetcher_mappings:   #mapping后的添加参数
+		filter:         lastInspectTime>0 && taskEndTime<^{now}  #数据过滤条件。 &:与，|：或， !：非
+		path:           
+
+		#分析匹配
+		analyzer_type: qlexpress #触发匹配类型：mvel(仅支持一种方式) |  any | flatline | frequency | spike | range | cardinality
+		expression:   时间比较(时间转换(nextInspectTime), 现在) > 15           #storeNumber-alarmNumber >0
+		timeframe: 
+
+
+		#组装发送
+		transmitter_type: stomp  #报警方式，可选：sms | email | db | stomp | api | lpc | debug | custom ...
+		transmitter_style: origion # 两种，原始信息或者  包装信息
+		wrapper: 尊敬的{subscriptions}，{assigName}上次校准日期为{lastInspectTime}，即将于{nextInspectTime}到期,请及时进行校准 #报警内容    
+		subscriptions: #报警订阅者
+		  - /alert/warn
+
+
+		解释说明： 
+			1 fetcher_type analyzer_type transmitter_type： 
+				与 加载的额alert-config.yml 映射对照，获取className
+				然后通过className反射加载为指定的执行Oject，即决定了执行方法
+				已上为例，即是： ApiFetcher QLExpressAnalyzer StompTransmitter
+
+			2 mode 控制为对expression的解析方式，一个是sample为pojo？？
+					主要是analyzer模块对判定表达式的加载方式问题
+
+			3 name 任务名称，同文件名称相同，目前是追踪规则的主键，对于分组还没有命名规则
+			  description 任务说明
+
+			4* run_mode 运行规则方式，主要划分工作流程的参数 period | realtime 
+				决定是添加到quartz，还是启动线程工作
+
+
+			5 fetcher_target ：获取资源数据
+				ApiFetcher 模式中：
+					response = restTemplate.getForObject(rule.getFetcherTarget(), JsonNode.class);
+				StompFetcher 模式中：
+					this.connect(rule.getFetcherTarget());//http://47.92.33.38:8801/WebSocketServer
+
+			   path : 根据设定的 key 值从返回的 json串 中获取指定的 value 值; key1,key2,key3
+
+			   fetcher_mappings：对 API 的字段与解析字段的对应，猜想与path一一对于应的。
+
+
+			5  expression ：在analyzer的加载中，调用对应的执行类，执行表达式，
+				对表达式的引用参数解析，按照 a_b_c 的格式解析 A.B.C 属性值，本例中对参数: nextInspectTime, 现在
+				进行解析 。
+
+			7 subscriptions 订阅者列表，发送对象
+			  transmitter_style : 对分析结果的包装分类，如果是 origin，那么原样加载，
+			  					加载 category 属性到每一条结果数据中
+			  
 
 	4 消息发送
 
@@ -698,3 +770,4 @@
 	select * from talbe where id in(3,2,4,1) ORDER BY FIND_IN_SET( id, '3,2,4,1') 
 
 	条件判断
+------------------------------------------------------------------------
