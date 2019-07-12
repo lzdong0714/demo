@@ -468,4 +468,4 @@ FROM
    ALTER TABLE table_name DROP COLUMN column_name 
    关联表被外键约束，那么insert与update的内容，必须满足对应的约束表的内容存在。
 
------------------------------
+----------------------------mkdir
