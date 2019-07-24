@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConcreteSubject implements Subject {
+
     List<Observer> observerList;
     MyMessage message;
 

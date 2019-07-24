@@ -21,11 +21,11 @@ spring:
     useSSL: false
     username: root
     password: hntywork
-########################END demo使用的数据库#####################
 server:
   port: 8081
 #logging:
 #  level: debug
+########################END demo使用的数据库#####################
 ---
 #########################quartz使用的数据库#####################
 spring:
@@ -40,25 +40,44 @@ mybatis:
   mapper-locations:
     - classpath:mysql/quartz/*.xml
   type-aliases-package: com.example.quartz_one.entity
+  config-location: classpath:mybaits-config.xml
 
 server:
   port: 8081
 
 #########################END quartz使用的数据库#####################
 ---
+#########################KAFKA 使用的数据库#####################
 spring:
-  profiles: home
+  profiles: kafka
   datasource:
-    url: jdbc:mysql://localhost:3306/mysql?serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/quartz?serverTimezone=GMT%2B8
     username: root
-    password: lzdong0714
+    password: hntywork
     driver-class-name: com.mysql.cj.jdbc.Driver
+  kafka:
+    bootstrap-servers: 192.168.239.128:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: test
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
 
 mybatis:
   mapper-locations:
     - classpath:mysql/quartz/*.xml
   type-aliases-package: com.example.quartz_one.entity
+  config-location: classpath:mybaits-config.xml
 
 server:
   port: 8081
+
+
+
+#########################END KAFKA 使用的数据库#####################
 ---
