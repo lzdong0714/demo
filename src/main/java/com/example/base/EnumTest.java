@@ -11,7 +11,7 @@ public enum EnumTest {
 
     private final String typeName;
 
-    private EnumTest(final int typeCode,final String typeName){
+    EnumTest(final int typeCode,final String typeName){
         this.typeCode = typeCode;
         this.typeName = typeName;
     }
@@ -29,6 +29,13 @@ public enum EnumTest {
     public static void main(String[] args) {
         int type = 3;
         String name = EnumTest.getShapeDesc(type);
+        EnumTest[] values = EnumTest.values();
+
+        for(EnumTest test :values){
+            System.out.println(test.typeName+" "+test.ordinal());
+
+
+        }
         switch (EnumTest.valueOf(EnumTest.class,name)){
             case POLYGON:
                 System.out.println("POLYGON");
