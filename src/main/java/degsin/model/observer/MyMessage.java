@@ -1,4 +1,4 @@
-package com.example.observer;
+package degsin.model.observer;
 
 public class MyMessage {
      String tmpMsg;

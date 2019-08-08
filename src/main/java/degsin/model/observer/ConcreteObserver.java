@@ -1,4 +1,4 @@
-package com.example.observer;
+package degsin.model.observer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

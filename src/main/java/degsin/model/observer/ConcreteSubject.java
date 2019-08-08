@@ -1,4 +1,4 @@
-package com.example.observer;
+package degsin.model.observer;
 
 import java.util.ArrayList;
 import java.util.List;

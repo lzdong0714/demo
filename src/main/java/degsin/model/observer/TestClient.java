@@ -1,4 +1,4 @@
-package com.example.observer;
+package degsin.model.observer;
 
 public class TestClient {
     public static void main(String[] args){
