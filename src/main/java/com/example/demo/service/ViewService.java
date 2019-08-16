@@ -22,7 +22,7 @@ public class ViewService {
     @Autowired
     ViewMapper viewMapper;
 
-    @Scheduled(cron = "0/10 * * * * *")
+//    @Scheduled(cron = "0/10 * * * * *")
     public void showViewItems(){
         List<ViewEntity> viewItems = viewMapper.getViewItems();
         viewItems.forEach(item->{

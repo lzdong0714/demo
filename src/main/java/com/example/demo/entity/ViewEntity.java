@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @Author: Liu Zhendong
- * @Description
+ * @Description 视图对应的实体
  * @createTime 2019年08月09日 11:18:00
  */
 @Data

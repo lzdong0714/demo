@@ -12,7 +12,7 @@
     "fetcherId" :2,
     "analyzerId":2,
     "transmitId" :2
-}
+},
 
 // fetcher:
 	// http://localhost:8081/alart//fetcher/insert
@@ -26,7 +26,7 @@
 		"fetcherMappings":"",
 		"fetcherFilter":"taskId>0 && taskEndTime<^{now}",
 		"fetcherPath":null
-	}
+	},
 
 // anaylzer
 	// http://localhost:8081/alart//analyzer/insert
@@ -38,7 +38,7 @@
 	"analyzerType":"qlexpress",
 	"analyzerExpression":"null"
 }
-
+,
 //transmit
 	// http://localhost:8081/alart//transmit/insert
 	// http://localhost:8081/alart/transmit/all
@@ -50,7 +50,7 @@
 	"transmitType":"stomp",
 	"transmitStyle":"origion",
 	"wrapper":"尊敬的{subscriptions}，项目编号{projectID}，任务单编号{taskID}，工作编号{jobID},送样人{broughtBy}的样品编号{$ 提取非正常退样( sampleReceiveStatus,\"-正常\"  ) }被退样，请关注"
-}
+},
 
 //fields
 [
