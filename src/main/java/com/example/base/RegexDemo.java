@@ -12,7 +12,7 @@ public class RegexDemo {
 
     public static void main(String[] args) {
         RegexDemo regexDemo = new RegexDemo();
-        regexDemo.test_4();
+        regexDemo.test_6();
     }
 
 
@@ -96,6 +96,44 @@ public class RegexDemo {
         }
         m.appendTail(buffer);
         System.out.println(buffer.toString());
+    }
+
+    private void test_5(){
+
+        String regex = "^[{].*";
+
+        String input = "{\\\\rtf1\\\\ansi\\\\ansicpg936\\\\deff0\\\\deflang1033\\\\deflangfe2052{" +
+                "\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq6\\\\fcharset134 \\\\'cb\\\\'ce\\\\'cc\\\\'e5;}" +
+                "{\\\\f1\\\\fnil\\\\fcharset0 Arial;}}\\r\\n\\\\viewkind4\\\\uc1\\\\pard\\\\lang2052\\\\f0\\\\fs18 1" +
+                " \\\\'c4\\\\'e3\\\\'ba\\\\'c3\\\\par\\r\\n2 \\\\f1 hello\\\\fs20\\\\par\\r\\n}";
+
+
+        Pattern compile = Pattern.compile(regex);
+
+        Matcher m = compile.matcher(input);
+        while(m.find()){
+            String group = m.group();
+//            System.out.println(group);
+            String[] strings = group.split("[{]");
+            for(int index = 0 ;index < strings.length; index++){
+                System.out.println(strings[index]);
+            }
+
+        }
+
+    }
+
+    private void test_6(){
+        String msg = "\r\n下面的样品检测项目被\r\n用户名:service\r\n检测项目:有机氯农药\r\n质控批次:Qb19052504\r\n" +
+                "样品代码:LETC1905011.01, LETC1905011.02, LETC1905011.03, LETC1905011.04, LETC1905011.05, LETC1905011.06," +
+                " LETC1905011.07, LETC1905011.08, LETC1905011.09, LETC1905011.10, LETC1905011.11\r\nQCType:DUP, MB," +
+                " MS\r\n项目名称:上海方展消防科技有限公司水土监测调查\r\n退回原因:0已发送邮件\",\n";
+        String filter_1 = msg.replaceAll("\\r\\n", " ");
+        String regex = "样品代码.*?项目名称";
+        String replace = "样品代码：见邮件详情 项目名称";
+        String res = filter_1.replaceAll(regex, replace);
+        System.out.println(res);
+
     }
 
 }
