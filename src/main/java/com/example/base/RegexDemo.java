@@ -124,15 +124,44 @@ public class RegexDemo {
     }
 
     private void test_6(){
-        String msg = "\r\n下面的样品检测项目被\r\n用户名:service\r\n检测项目:有机氯农药\r\n质控批次:Qb19052504\r\n" +
-                "样品代码:LETC1905011.01, LETC1905011.02, LETC1905011.03, LETC1905011.04, LETC1905011.05, LETC1905011.06," +
-                " LETC1905011.07, LETC1905011.08, LETC1905011.09, LETC1905011.10, LETC1905011.11\r\nQCType:DUP, MB," +
-                " MS\r\n项目名称:上海方展消防科技有限公司水土监测调查\r\n退回原因:0已发送邮件\",\n";
+//        String msg = "\r\n下面的样品检测项目被\r\n用户名:service\r\n检测项目:有机氯农药\r\n质控批次:Qb19052504\r\n" +
+//                "样品代码:LETC1905011.01, LETC1905011.02, LETC1905011.03, LETC1905011.04, LETC1905011.05, LETC1905011.06," +
+//                " LETC1905011.07, LETC1905011.08, LETC1905011.09, LETC1905011.10, LETC1905011.11\r\nQCType:DUP, MB," +
+//                " MS\r\n项目名称:上海方展消防科技有限公司水土监测调查\r\n退回原因:0已发送邮件\",\n";
+        String msg = "SR19071101 细节被变更。详情请查看监测方案变更报告。已发送邮件";
         String filter_1 = msg.replaceAll("\\r\\n", " ");
         String regex = "样品代码.*?项目名称";
         String replace = "样品代码：见邮件详情 项目名称";
         String res = filter_1.replaceAll(regex, replace);
-        System.out.println(res);
+
+        String regex_1 = "退回原因.*";
+        String replace_1 = "";
+
+        String regex_3 = "质控批次.*" ;
+
+
+
+        Pattern compile = Pattern.compile(regex_3);
+
+        Matcher m = compile.matcher(msg);
+        if (m.find()){
+            System.out.println(m.group());
+        }else {
+            compile = Pattern.compile(".*细节被变更");
+            m = compile.matcher(msg);
+            if (m.find()){
+                System.out.println(m.group());
+            }
+        }
+        while(m.find()) {
+            String group = m.group();
+//            group.replaceAll("样品代码","");
+            System.out.println(group==null);
+            System.out.println(group.equals(""));
+            System.out.println(group);
+        }
+//        String res_1 = res.replaceAll(regex_1,replace_1);
+//        System.out.println(res_1);
 
     }
 

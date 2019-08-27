@@ -28,7 +28,6 @@ public enum EnumTest {
 
     public static void main(String[] args) {
         int type = 3;
-        String name = EnumTest.getShapeDesc(type);
         EnumTest[] values = EnumTest.values();
 
         for(EnumTest test :values){
@@ -36,6 +35,8 @@ public enum EnumTest {
 
 
         }
+
+        String name = EnumTest.getShapeDesc(type);
         switch (EnumTest.valueOf(EnumTest.class,name)){
             case POLYGON:
                 System.out.println("POLYGON");
