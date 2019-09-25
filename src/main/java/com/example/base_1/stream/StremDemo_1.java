@@ -35,6 +35,7 @@ public class StremDemo_1 {
         System.out.println(count);
         List<String> strings = Arrays.asList("abc", "", "bc", "efg", "abcd","", "jkl");
         List<String> filtered = strings.stream()
+
                 .filter(string -> !string.isEmpty())
 //                .sorted((str1, str2) -> str1.length() - str2.length())
                 .sorted(Comparator.comparing(str->str,Comparator.reverseOrder()))

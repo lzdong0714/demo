@@ -1,4 +1,4 @@
-package com.example.annotated;
+package com.example.demo.annotated;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,7 +103,7 @@ public class MainTableCreator {
     }
 
     public static void main(String[] args) {
-        String[] arg = {"com.example.annotated.Member"};
+        String[] arg = {"Member"};
 
         for(String className : arg){
             try {

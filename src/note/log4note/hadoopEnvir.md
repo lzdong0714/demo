@@ -134,7 +134,8 @@ jps -l
 <!--配置yarn-site.xml-->
 <property>
     <name>yarn.resourcemanager.hostname</name>
-    <value>master</value>
+    # 这里是主节点的ip的别名 本机windows是127.0.0.1的别名是localhost
+    <value>iZg49eyde8w3v0Z</value>
 </property>
 
 <property> 

@@ -3,6 +3,7 @@ package com.example.base;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.quartz.CronExpression;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -14,20 +15,20 @@ import java.util.List;
 public class DateTest {
 
     public static void main(String[] args) {
-        DateTest dateTest = new DateTest();
-//        dateTest.test_1();
-//        dateTest.test_2();
-
-        Date date_1 = new Date();
-        Date date_2 = new Date();
-        try {
-            dateTest.test_3(date_1, date_2);
-            System.out.println("------------------");
-            System.out.println(date_1);
-            System.out.println(date_2);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        DateTest dateTest = new DateTest();
+////        dateTest.test_1();
+////        dateTest.test_2();
+//
+//        Date date_1 = new Date();
+//        Date date_2 = new Date();
+//        try {
+//            dateTest.test_3(date_1, date_2);
+//            System.out.println("------------------");
+//            System.out.println(date_1);
+//            System.out.println(date_2);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
     }
 
     //Date和LocalDate的转化
@@ -38,12 +39,17 @@ public class DateTest {
         Instant instant_end = endTime.atStartOfDay(ZoneId.systemDefault()).toInstant();
         Date startTime_1 = Date.from(instant_start);
         Date endTime_1 = Date.from(instant_end);
+
+        Instant instant = startTime_1.toInstant();
+        LocalDateTime reverse = LocalDateTime.ofInstant(instant,ZoneId.systemDefault());
+        System.out.println("reverse date -> localDate" + reverse);
         System.out.println("LocalDate print: " + startTime);
         System.out.println("Date print: " + startTime_1);
     }
 
     //数据库bigint，java Long 和DataLocal之间的转化
     public void test_2(){
+
         Long java_data = 1143378835098615812L/1000;
         Instant instant = Instant.ofEpochMilli(java_data);
         ZoneId zoneId = ZoneId.systemDefault();
@@ -79,6 +85,19 @@ public class DateTest {
             if(nextTime.getTime()>=to.getTime()) break;
 
         }
+
+    }
+
+
+    /**
+     * 时间与时间戳的转化
+     */
+    private void test_4(){
+        java.sql.Timestamp timestamp = new Timestamp(new Date().getTime());
+        LocalDateTime time = timestamp.toLocalDateTime();
+        long timeMillis = System.currentTimeMillis();
+        LocalDate localDate = Instant.ofEpochMilli(timeMillis).atZone(ZoneOffset.ofHours(8)).toLocalDate();
+        LocalDateTime localDateTime = Instant.ofEpochMilli(timeMillis).atZone(ZoneOffset.ofHours(8)).toLocalDateTime();
 
     }
 }

@@ -10,10 +10,12 @@ public class RestTemplateService {
 
     @Autowired
     private RestTemplate restTemplate;
-
+    String url_1 = "http://localhost:8003/hnty/lims/v1/repo/alarm_origin_info/liyuan/late_order";
+    String url_2 = "http://localhost:8003/hnty/lims/v1/repo/alarm_origin_info/liyuan/late_order_deliver";
+    String url_3 = "\"http://120.78.207.98:8003//hnty/lims/v1/repo/alarm_origin_info/device\"";
     public void getRestTemplate(){
         JsonNode response = restTemplate.
-                getForObject("http://120.78.207.98:8003//hnty/lims/v1/repo/alarm_origin_info/device",JsonNode.class);
+                getForObject(url_2,JsonNode.class);
         System.out.println(response);
     }
 }

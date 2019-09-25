@@ -1,4 +1,4 @@
-package com.example.annotated;
+package com.example.demo.annotated;
 
 /**
  * @Author: Liu Zhendong
