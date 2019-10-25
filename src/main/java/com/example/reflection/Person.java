@@ -21,12 +21,12 @@ public class Person {
     private LocalDateTime birthTime;
 
 
-    public static void main(String[] args) {
-        Person person = new Person();
-        person.setAge(10)
-        .setBirthTime(LocalDateTime.of(2010,9,12,17,30))
-                .setName("pop");
-
-
-    }
+//    public static void main(String[] args) {
+//        Person person = new Person();
+//        person.setAge(10)
+//        .setBirthTime(LocalDateTime.of(2010,9,12,17,30))
+//                .setName("pop");
+//
+//
+//    }
 }
