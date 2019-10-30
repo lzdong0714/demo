@@ -155,7 +155,15 @@ public class JdkProxyHandle{
 
 ```
 
+controller 层的参数注解
 
+``` java
+@PutMapping(value = "/path")
+public ResponseBody controllerMethod(@RequsetParam(value = "value") variable_0,
+                                    @RequestHeader variable_1,
+                                    @RequestBody variale_2,
+                                    @ModelAttribute variable_3)
+```
 
 
 
