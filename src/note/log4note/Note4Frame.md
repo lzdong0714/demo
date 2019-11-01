@@ -1,3 +1,5 @@
+
+
 Quartz：用来任务调度的框架
 
 Stomp：就像HTTP在TCP套接字之上添加了请求-响应模型层一样，STOMP在WebSocket之上提供了一个基于帧的线路格式（frame-based wire format）层，用来定义消息的语义。
@@ -169,6 +171,8 @@ public ResponseBody controllerMethod(@RequsetParam(value = "value") variable_0,
 
 ## Mybaits
 
+#### 操作返回值
+
 ``` xml
 insert：   插入n条记录，返回影响行数n。（n>=1，n为0时实际为插入失败）
 
@@ -176,6 +180,10 @@ update：更新n条记录，返回影响行数n。（n>=0）
 
 delete： 删除n条记录，返回影响行数n。（n>=0）
 ```
+
+
+
+#### foreach 遍历
 
 ``` xml
 <insert id ="INSERT-CODE-BATCH" parameterType="java.util.List" >
@@ -202,6 +210,61 @@ delete： 删除n条记录，返回影响行数n。（n>=0）
 		  product_code =#list[]#
 		</iterate>
 </update>
+
+```
+
+ 
+
+删除
+
+``` xml
+// 批量删除用 where in + <foreach>
+    
+<delete id="batchDelete" parameterType="java.util.List">
+        DELETE from 
+        list
+        where id in
+        <foreach collection="idList" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    
+  // 关联删除用 LEFT JOIN 
+     <delete id="deleteSite">
+        DELETE MS,MSR
+        FROM monitoring_site MS
+          LEFT JOIN monitoring_site_range MSR ON MS.site_id = MSR.site_id
+        WHERE
+          MS.site_id = #{siteId}
+    </delete>
+```
+
+#### 不同数据源的连接
+
+``` xml
+// 相同数据服务下，不同的数据库联表查询时，带上非配置数据库的库名
+spring.datasource.url = jdbc:mysql://ip:port/database_name_1
+同样的ip：port下有database_name_2,database_name_3,
+那么 xml中
+
+select  
+	a.meta_a,
+	b.meta_b,
+	c.meta_c
+FROM 
+	table_A a 
+		LEFT JOIN database_name_2.table_B b ON ...
+		LEFT JOIN database_name_3.table_C c ON ...
+
+
+/// 不同的数据连接那么
+spring.datasource.source-a.url = jdbc:mysql://ip_a:port_a/database
+spring.datasource.source-b.url = jdbc:mysql://ip_b:port_b/database
+spring.datasource.source-c.url = jdbc:sqlserver://ip_c:port_c/database
+
+那么要配置不同的@confingure
+并且设置扫描的xml和java功能包。所以在工程结构目录上就要区分不同数据源的功能结构。
 
 ```
 
