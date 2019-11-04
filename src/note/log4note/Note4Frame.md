@@ -270,3 +270,27 @@ spring.datasource.source-c.url = jdbc:sqlserver://ip_c:port_c/database
 
 
 
+## MySQL
+
+``` mysql
+// 数据库的时间字段更新与自动更新
+DROP TABLE IF EXISTS `mytesttable`;  
+CREATE TABLE `mytesttable` (  
+  `id` int(11) NOT NULL,  
+  `name` varchar(255) DEFAULT NULL,  
+  `createtime` datetime DEFAULT CURRENT_TIMESTAMP,  
+  `updatetime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB DEFAULT CHARSET=gbk; 
+```
+
+
+
+
+
+
+
+
+
+
+
