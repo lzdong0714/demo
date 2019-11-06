@@ -240,6 +240,10 @@ delete： 删除n条记录，返回影响行数n。（n>=0）
     </delete>
 ```
 
+
+
+
+
 #### 不同数据源的连接
 
 ``` xml
@@ -272,6 +276,8 @@ spring.datasource.source-c.url = jdbc:sqlserver://ip_c:port_c/database
 
 ## MySQL
 
+#### 数据库的时间字段更新与自动更新
+
 ``` mysql
 // 数据库的时间字段更新与自动更新
 DROP TABLE IF EXISTS `mytesttable`;  
@@ -285,6 +291,66 @@ CREATE TABLE `mytesttable` (
 ```
 
 
+
+#### 函数变量
+
+``` mysql
+set @item.reportTimeListStr = "2019-01-20,2019-04-10";
+     UPDATE monitor_site.monitoring_site_instrument msi
+      SET msi.report_time_list =(
+          case
+          when msi.report_time_list IS NULL
+            then  @item.reportTimeListStr
+          when msi.report_time_list IS NOT NULL
+            then  CONCAT(msi.report_time_list,",",@item.reportTimeListStr)
+          end)
+      WHERE
+        msi.bind_id = 116;
+```
+
+
+
+选择表达式
+
+``` mysql
+IF(expr1, expr2, expr3) 等价 expr1?expr2:expr3
+
+IFNULL(expr1,expr2) 等价 expr1!=null?expr1:expr2
+
+SELECT
+	CASE column_name 
+		WHEN 1 THEN '男'  
+		WHEN 2 THEN '女'
+		ELSE '???'
+     END
+     
+     
+IF search_condition THEN 
+    statement_list  
+[ELSEIF search_condition THEN]  
+    statement_list ...  
+[ELSE 
+    statement_list]  
+END IF
+
+create procedure dbname.proc_getGrade  
+(stu_no varchar(20),cour_no varchar(10))  
+BEGIN 
+declare stu_grade float;  
+select grade into stu_grade from grade where student_no=stu_no and course_no=cour_no;  
+if stu_grade>=90 then 
+    select stu_grade,'A';  
+elseif stu_grade<90 and stu_grade>=80 then 
+    select stu_grade,'B';  
+elseif stu_grade<80 and stu_grade>=70 then 
+    select stu_grade,'C';  
+elseif stu_grade70 and stu_grade>=60 then 
+    select stu_grade,'D';  
+else 
+    select stu_grade,'E';  
+end if;  
+END
+```
 
 
 
