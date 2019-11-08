@@ -1,29 +1,33 @@
 package com.example.base;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 public class OptionalTest {
 
     public static void main(String[] args) {
 
-        MethodInner methodInner = new MethodInner();
-
-        Optional<String> id = Optional.ofNullable(methodInner.getId());
-        System.out.println(id);
-
-        methodInner.setId("raw_id");
-        Optional<String> idplus = Optional.ofNullable(methodInner)
-                .map(MethodInner::plusId);
-        System.out.println(idplus);
-        System.out.println(idplus.orElse("no data"));
-
-        methodInner.setId("id");
-        Optional<String> s = Optional.of(methodInner).map(MethodInner::plusId);
-        System.out.println("s : "+s);
-        String s1 = s.orElse("");
-        System.out.println("s1 : "+s1);
+      test_2();
     }
 
+    public static void test_2(){
+        MethodInner methodInner = new MethodInner();
+//        methodInner.setId("id_1");
+        List<MethodInner> list = new LinkedList<>();
+        list.add(methodInner);
+
+        boolean b_1 = Optional.ofNullable(list).isPresent();
+        System.out.println("b1 : "+ b_1);
+
+        boolean b_2 = Optional.ofNullable(list).map(items -> {
+            return items.get(0);
+        }).map(item -> {
+            return item.getId();
+        }).isPresent();
+        System.out.println("b2 : "+ b_2);
+
+    }
 
 }
 
