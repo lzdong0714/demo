@@ -28,6 +28,12 @@ Stomp：就像HTTP在TCP套接字之上添加了请求-响应模型层一样，S
         8、resources/application.yml
 ```
 
+``` java
+public enum RequestMethod {
+	GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACE
+}
+```
+
 
 
 
